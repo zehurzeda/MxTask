@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+	
+	<link th:href="@{/resources/css/estilo_usuario.css}" rel="stylesheet" />
+	
+	<title>Bem vindo ao sistema!</title>
+
+</head>
+
+<body style="background-color: #f9f9f9">
+
+	<div layout:fragment="content">
+		<div class="row container">
+			<div class="white col s12 z-depth-3">
+				<div class="col s12 center">
+					<img class="circle responsive-img" th:src="${usuario.imgPerfil}" />
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

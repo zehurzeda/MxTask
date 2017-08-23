@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<title>Bem vindo ao sistema!</title>
+
+
+<link th:href="@{/resources/css/estilo_cad_equipe.css}" rel="stylesheet" />
+</head>
+
+<body style="background-color: #f9f9f9">
+
+	<div layout:fragment="content">
+		<div class="row container">
+			<div class="white col s12 z-depth-3">
+				<div class="section">
+					<h5>Cadastro de Equipe</h5>
+				</div>
+				<div class="divider"></div>
+				<form id="formEquipe" class="col s12" action="/ws/equipe/" method="POST" name="formEquipe">
+					<div class="row">
+						<div class="input-field col s12 m12 l5">
+							<input id="nomeIpt" name="nome" type="text" class="validate" required="required"/> 
+							<label for="nome">Nome da Equipe</label>
+						</div>
+						<div class="input-field col s12 m12 l5">
+							<input id="descIpt" name="descricao" type="text" class="validate" required="required"/> 
+							<label for="descricao">Descrição</label>
+						</div>
+						<div class="col s12 m12 l2 valinhado">
+							<button class="btn blue waves-effect waves-ligt" type="submit">Salvar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="white col s12 z-depth-3">
+				<div class="section">
+					<h5>Listagem de Equipes</h5>
+				</div>
+				<div class="divider"></div>
+				<table class="striped" id="tableEquipes">
+					<thead>
+						<tr>
+              				<th>Id</th>
+              				<th>Nome</th>
+              				<th>Opções</th>
+          				</tr>
+					<thead>
+					<tbody>
+					</tbody>
+				</table>
+				<div class="col s12 center-align footer-tabela">
+					<span id="itemBtn"></span>
+				</div>
+			</div>
+		</div>
+		
+		<div id="modalExclusao" class="modal modal-close">
+			<div class="modal-content">
+				<h4>Confirma Exlusão?</h4>
+				<p>Deseja realmente excluir a equipe de <span id="nomeEquipe"></span></p>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="modal-action modal-close waves-effect btn-flat">Não</a>
+			</div>
+		</div>
+		
+	<script th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/resources/js/cadastro/equipe.js}"></script>
+	</div>
+	
+</body>
+</html>
