@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -51,6 +52,22 @@ public class CadastroWsController {
 		return eqpRepository.findOne(id);
 	}
 	
+	@RequestMapping(method = RequestMethod.POST, value="/equipe")
+	public ResponseEntity<Equipe> saveEquipe(@RequestBody Equipe equipe){
+		Equipe eqpCriada = eqpRepository.save(equipe);
+		return new ResponseEntity<>(eqpCriada, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = { "/equipe/{id:\\d+" }, method = { RequestMethod.DELETE })
+	public @ResponseBody ResponseEntity<?> DeleteEquipe(@PathVariable(value="Id") Long id) {
+		Equipe equipe = eqpRepository.findOne(id);
+		
+		if(equipe == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		eqpRepository.delete(equipe);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 	
 	@JsonView(UserView.UsuarioView.class)
 	@GetMapping("/usuario")
@@ -64,10 +81,6 @@ public class CadastroWsController {
 		return usrRepository.findOne(id);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value="/equipe")
-	public ResponseEntity<Equipe> saveEquipe(@RequestBody Equipe equipe){
-		Equipe eqpCriada = eqpRepository.save(equipe);
-		return new ResponseEntity<>(eqpCriada, HttpStatus.CREATED);
-	}
+
 	
 }

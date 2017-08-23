@@ -10,9 +10,14 @@ function preencheTabela(data){
 			"<tr>" +
 			"	<td>" + value.id + "</td>" +
 			"	<td>" + value.nome + "</td>" +
-			"	<td><a href='#' data-nome="+value.nome+" data-id="+value.id+" class='delete red-text'>" +
+			"	<td>" +
+					"<a href='' data-nome=" + "'" + value.nome + "'" +" data-id="+ value.id +" class='deletar red-text'>" +
 					"<i class='material-icons'>delete_forever</i>" +
-					"</a></td>" +
+					"</a>" +
+					"<a href='#' data-nome="+ value.nome +" data-id="+ value.id +" class='editar black-text'>" +
+					"<i class='material-icons'>edit</i>" +
+					"</a>" +
+			"	</td>" +
 			"</tr>"				
 		);
 	});
@@ -36,6 +41,20 @@ function salvaEquipe(){
 	});
 }
 
+function deletaEquipe(id){
+	$.ajax({
+		URL: $("#formEquipe").attr('action')+id,
+		type: 'DELETE',
+		success: function(){
+			getDadosTabela();
+			Materialize.toast('Equipe Deletada com sucesso!', 4000);
+		},
+		fail: function(){
+			alert(URL);
+		}
+	});
+}
+
 /**
  * Função Ajax que faz uma requisição do tipo GET e recebe o JSON com a listagem de todas as equipes
  * @returns
@@ -50,7 +69,20 @@ function getDadosTabela(){
 	});
 }
 
+function cliqueExcluiEquipe(event){
+	event.preventDefault();
+	var nome = $(this).data('nome');
+	var id = $(this).data('id');
+	$('#nomeEquipe').text(nome);
+	$("a.confirma-exclusao").attr('data-id', id);
+	$('#modalExclusao').modal('open');
+}
 
+function cliqueConfirmaExclusao(event){
+	var id = $('a.confirma-exclusao').attr('data-id');
+	deletaEquipe(id);
+	alert($("#formEquipe").attr('action')+id);
+}
 
 function cliqueSalvaEquipe(event){
 	event.preventDefault();
@@ -88,4 +120,9 @@ $(document).ready(function() {
 	getDadosTabela();
 	$("#itemBtn").on('click', cliqueAtualizaTabela);
 	$("#formEquipe").submit(cliqueSalvaEquipe);
+	$('.modal').modal();
+	$(document).on('click', '.deletar', cliqueExcluiEquipe);
+	$('#confirmaExclusao').on('click', cliqueConfirmaExclusao);
 });
+
+
