@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>Login - CAM</title>
+		
+		<link th:href="@{/resources/css/materialize.css}" rel="stylesheet" />
+		<link th:href="@{/resources/css/materialize.min.css}" rel="stylesheet" />
+		<link th:href="@{/resources/css/estilo_login.css}" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+		
+	</head>
+	<body style="background-color: #f9f9f9">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m8 offset-m2">
+						<form th:action="@{/login}" method="post" class="login-form">
+							<div class="card">
+								<div class="card-image">
+									<img th:src="@{/resources/images/Login.png}">	
+								</div>	
+								<div class="card-content">
+									<div th:if="${param.error}" class="red lighten-5">
+										<div class="center-align">
+											<span class="red-text text-darken-4">Usuário e/ou senha inválidos!</span>	
+										</div>
+									</div>
+									<div class="input-field">
+										<input name="username" id="usuario" type="text"/>
+										<label for="usuario">Usuário</label>
+									</div>
+									<div class="input-field">
+		         							<input name = "password" id="password" type="password" class="validate">
+		         							<label for="password">Senha</label>
+		       						</div>
+								</div>
+								<div class="card-action blue-grey lighten-3">
+									<div class="center-align">
+										<button class="btn"><i class="material-icons right">vpn_key</i>Entrar</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		<script th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+		<script th:src="@{/resources/js/script.js}"></script>
+		<script th:src="@{/resources/js/materialize.min.js}"></script>
+	</body>
+</html>
