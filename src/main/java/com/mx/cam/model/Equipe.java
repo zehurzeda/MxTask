@@ -2,7 +2,6 @@ package com.mx.cam.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,34 +23,18 @@ public class Equipe {
 	@JsonView(UserView.PublicView.class)
 	private String nome;
 	
-	@JsonView(UserView.EquipeView.class)
+	@JsonView(UserView.PublicView.class)
 	private String descricao;
 	
 	@JsonView(UserView.EquipeView.class)
-	@OneToMany(mappedBy="equipe", targetEntity=Usuario.class, fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="equipe", targetEntity=Usuario.class, fetch=FetchType.LAZY)
 	private List<Usuario> usuarios;
 	
 	@JsonView(UserView.EquipeView.class)
-	@OneToMany(mappedBy="equipe", targetEntity=Tarefa.class, fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="equipe", targetEntity=Tarefa.class, fetch=FetchType.LAZY)
 	private List<Tarefa> tarefas;
-
 	
 	
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public List<Tarefa> getTarefas() {
-		return tarefas;
-	}
-
-	public void setTarefas(List<Tarefa> tarefas) {
-		this.tarefas = tarefas;
-	}
 
 	public Long getId() {
 		return id;
@@ -69,6 +52,14 @@ public class Equipe {
 		this.nome = nome;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
@@ -76,6 +67,18 @@ public class Equipe {
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+
+	public List<Tarefa> getTarefas() {
+		return tarefas;
+	}
+
+	public void setTarefas(List<Tarefa> tarefas) {
+		this.tarefas = tarefas;
+	}
+
+	
+	
+	
 	
 	
 }

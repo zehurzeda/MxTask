@@ -52,22 +52,39 @@ public class CadastroWsController {
 		return eqpRepository.findOne(id);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value="/equipe")
+	@RequestMapping(value="/equipe", method=RequestMethod.POST)
 	public ResponseEntity<Equipe> saveEquipe(@RequestBody Equipe equipe){
 		Equipe eqpCriada = eqpRepository.save(equipe);
 		return new ResponseEntity<>(eqpCriada, HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value = { "/equipe/{id:\\d+" }, method = { RequestMethod.DELETE })
-	public @ResponseBody ResponseEntity<?> DeleteEquipe(@PathVariable(value="Id") Long id) {
+	@RequestMapping(value="/equipe", method=RequestMethod.PUT)
+	public @ResponseBody ResponseEntity<?> AtualizaEquipe(@RequestBody Equipe equipe) {
+		Equipe eqp = eqpRepository.findOne(equipe.getId());
+		if(eqp == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		eqpRepository.save(equipe);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+	
+	@RequestMapping(value="/equipe/{equipeId}", method=RequestMethod.DELETE)
+	public @ResponseBody ResponseEntity<?> DeleteEquipe(@PathVariable(value="equipeId") Long id) {
 		Equipe equipe = eqpRepository.findOne(id);
 		
 		if(equipe == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		eqpRepository.delete(equipe);
+		try {
+			eqpRepository.delete(equipe);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		}
+		
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+
 	
 	@JsonView(UserView.UsuarioView.class)
 	@GetMapping("/usuario")

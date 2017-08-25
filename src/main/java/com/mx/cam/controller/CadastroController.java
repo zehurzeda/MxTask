@@ -28,10 +28,5 @@ public class CadastroController {
 		return mv;
 	}
 	
-	@PostMapping("/equipe")
-	public String salvaEquipe(Equipe equipe) {
-		this.equipeRepository.save(equipe);
-		return "redirect:/cadastro/equipe";
-	}
 	
 }

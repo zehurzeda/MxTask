@@ -2,7 +2,7 @@ $(function() {
 	$(".button-sideNav").sideNav();
 })
 
- $(document).ready(function(){
-
- });
+$(document).ready(function(){
+	
+});
 

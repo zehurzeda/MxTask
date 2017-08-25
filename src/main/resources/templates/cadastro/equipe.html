@@ -18,7 +18,7 @@
 					<h5>Cadastro de Equipe</h5>
 				</div>
 				<div class="divider"></div>
-				<form id="formEquipe" class="col s12" action="/ws/equipe/" method="POST" name="formEquipe">
+				<form id="formEquipe" class="col s12" name="formEquipe">
 					<div class="row">
 						<div class="input-field col s12 m12 l5">
 							<input id="nomeIpt" name="nome" type="text" class="validate" required="required"/> 
@@ -29,7 +29,7 @@
 							<label for="descricao">Descrição</label>
 						</div>
 						<div class="col s12 m12 l2 valinhado">
-							<button class="btn blue waves-effect waves-ligt" type="submit">Salvar</button>
+							<button class="btn blue waves-effect waves-ligt">Salvar</button>
 						</div>
 					</div>
 				</form>
@@ -56,16 +56,50 @@
 			</div>
 		</div>
 		
-		<div id="modalExclusao" class="modal modal-close">
+		<div id="modalExclusao" class="modal">
 			<div class="modal-content">
 				<h4>Confirma Exlusão?</h4>
 				<p>Deseja realmente excluir a equipe de <span id="nomeEquipe"></span></p>
 			</div>
 			<div class="modal-footer">
 				<a id="cancelaExclusao" class="modal-action modal-close waves-effect waves-ligt btn-flat cancela-exclusao">Não</a>
-				<a id="confirmaExclusao" data-id="0" class="modal-action waves-effect waves-ligt btn-flat confirma-exclusao">Sim</a>
+				<a id="confirmaExclusao" data-id="0" class="modal-action modal-close waves-effect waves-ligt btn-flat confirma-exclusao">Sim</a>
 			</div>
 		</div>
+		
+		<div id="modalEdicao" class="modal">
+			<div class="modal-content">
+				<h4>Editar Equipe</h4>
+				<div class="divider"></div>
+				<form id="formEquipeEdt" class="col s12" action="/ws/equipe/" method="POST" name="formEquipe">
+					<div class="row">
+						<div class="input-field col s12 m12 l5">
+							<input id="nomeEdt" name="nomeEdicao" type="text" class="validate" required="required"/> 
+							<label for="nomeEdicao" class="active">Nome da Equipe</label>
+						</div>
+						<div class="input-field col s12 m12 l5">
+							<input id="descEdt" name="descricaoEdicao" type="text" class="validate" required="required"/>
+							<label for="descricao" class="active">Descrição</label>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a id="cancelaEdicao" class="modal-action modal-close waves-effect waves-ligt btn-flat cancela-edicao">Cancelar</a>
+				<a id="confirmaEdicao" data-id="0" class="waves-effect modal-close waves-ligt btn-flat confirma-edicao">Salvar</a>
+			</div>
+		</div>
+		
+		<div id="modalErro" class="modal">
+			<div class="modal-content">
+				<h4>Não foi possível completar a <span id="tipoAcao"></span></h4>
+				<span id="msgAcao"></span>
+			</div>
+			<div class="modal-footer">
+				<a class="modal-action modal-close waves-effect waves-ligt btn-flat">OK</a>
+			</div>
+		</div>
+		
 		
 	<script th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
 	<script th:src="@{/resources/js/cadastro/equipe.js}"></script>
