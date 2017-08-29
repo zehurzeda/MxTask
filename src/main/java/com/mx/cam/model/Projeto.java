@@ -4,36 +4,41 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Projeto implements Serializable{
+public class Projeto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String nome;
-	
+
 	private LocalDateTime dataAbertura;
-	
+
 	private LocalDateTime dataFechamento;
-	
-	@Column(columnDefinition="Text")
+
+	@Column(columnDefinition = "Text")
 	private String descricao;
-	
-	@OneToMany(mappedBy="projeto", targetEntity=Tarefa.class, fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "projeto", targetEntity = Tarefa.class, fetch = FetchType.LAZY)
 	private List<Tarefa> tarefas;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "equipe_id")
+	private Equipe equipe;
+
 	public LocalDateTime getDataFechamento() {
 		return dataFechamento;
 	}
@@ -73,7 +78,5 @@ public class Projeto implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
-	
+
 }

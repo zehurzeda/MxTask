@@ -14,27 +14,25 @@ import com.mx.cam.model.views.UserView;
 
 @Entity
 public class Equipe {
-	
+
 	@JsonView(UserView.PublicView.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@JsonView(UserView.PublicView.class)
 	private String nome;
-	
+
 	@JsonView(UserView.PublicView.class)
 	private String descricao;
-	
+
 	@JsonView(UserView.EquipeView.class)
-	@OneToMany(mappedBy="equipe", targetEntity=Usuario.class, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "equipe", targetEntity = Usuario.class, fetch = FetchType.LAZY)
 	private List<Usuario> usuarios;
-	
+
 	@JsonView(UserView.EquipeView.class)
-	@OneToMany(mappedBy="equipe", targetEntity=Tarefa.class, fetch=FetchType.LAZY)
-	private List<Tarefa> tarefas;
-	
-	
+	@OneToMany(mappedBy = "equipe", targetEntity = Projeto.class, fetch = FetchType.LAZY)
+	private List<Projeto> projetos;
 
 	public Long getId() {
 		return id;
@@ -68,17 +66,14 @@ public class Equipe {
 		this.usuarios = usuarios;
 	}
 
-	public List<Tarefa> getTarefas() {
-		return tarefas;
+	public List<Projeto> getProjetos() {
+		return projetos;
 	}
 
-	public void setTarefas(List<Tarefa> tarefas) {
-		this.tarefas = tarefas;
+	public void setProjetos(List<Projeto> projetos) {
+		this.projetos = projetos;
 	}
 
 	
-	
-	
-	
-	
+
 }

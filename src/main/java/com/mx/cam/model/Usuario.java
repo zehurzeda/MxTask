@@ -22,42 +22,41 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@JsonView(UserView.PublicView.class)
-	private String nome;		
-	
+	private String nome;
+
 	@JsonView(UserView.UsuarioAllView.class)
 	private String login;
-	
+
 	@JsonView(UserView.UsuarioAllView.class)
 	private String senha;
-	
+
 	@JsonView(UserView.PublicView.class)
 	private String email;
-	
+
 	@JsonView(UserView.PublicView.class)
 	private String imgPerfil;
-	
+
 	@JsonView(UserView.PublicView.class)
 	private String imgPerfilPeq;
-	
+
 	@JsonView(UserView.UsuarioView.class)
 	private boolean ativo;
-	
+
 	@JsonView(UserView.UsuarioAllView.class)
 	@ManyToMany
 	private List<Grupo> grupos;
-	
+
 	@JsonView(UserView.UsuarioAllView.class)
 	@ManyToMany
 	private List<Permissao> permissoes;
-	
+
 	@JsonView(UserView.UsuarioView.class)
 	@ManyToOne
-	@JoinColumn(name="equipe_id")
+	@JoinColumn(name = "equipe_id")
 	private Equipe equipe;
-	
-	
+
 	public String getImgPerfilPeq() {
 		return imgPerfilPeq;
 	}
@@ -65,7 +64,7 @@ public class Usuario implements Serializable {
 	public void setImgPerfilPeq(String imgPerfilPeq) {
 		this.imgPerfilPeq = imgPerfilPeq;
 	}
-	
+
 	public Equipe getEquipe() {
 		return equipe;
 	}
@@ -77,15 +76,15 @@ public class Usuario implements Serializable {
 	public String getImgPerfil() {
 		return imgPerfil;
 	}
-	
+
 	public void setImgPerfil(String imgPerfil) {
 		this.imgPerfil = imgPerfil;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -121,23 +120,23 @@ public class Usuario implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
 	public boolean isAtivo() {
 		return ativo;
 	}
-	
+
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-	
+
 	public List<Grupo> getGrupos() {
 		return grupos;
 	}
-	
+
 	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
 	}
-	
+
 	public List<Permissao> getPermissoes() {
 		return permissoes;
 	}

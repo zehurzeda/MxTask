@@ -16,9 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Tarefa implements Serializable{
+public class Tarefa implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -28,22 +28,19 @@ public class Tarefa implements Serializable{
 	private Integer prioridade;
 	private LocalDate previsao;
 	private LocalDateTime dataFechamento;
-	
+
 	@ManyToOne
-	@JoinColumn(name="usuario_id")
+	@JoinColumn(name = "usuario_id")
 	private Usuario autor;
-	
+
 	@ManyToOne
-	@JoinColumn(name="projeto_id")
+	@JoinColumn(name = "projeto_id")
 	private Projeto projeto;
-	
-	@ManyToOne
-	@JoinColumn(name="equipe_id")
-	private Equipe equipe;
-	
-	@OneToMany(mappedBy="tarefa", targetEntity=Mensagem.class, fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+
+
+	@OneToMany(mappedBy = "tarefa", targetEntity = Mensagem.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Mensagem> mensagens;
-	
+
 	public LocalDate getPrevisao() {
 		return previsao;
 	}
@@ -91,7 +88,7 @@ public class Tarefa implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	public LocalDateTime getDataAbertura() {
 		return dataAbertura;
 	}
@@ -131,5 +128,5 @@ public class Tarefa implements Serializable{
 	public void setMensagens(List<Mensagem> mensagens) {
 		this.mensagens = mensagens;
 	}
-	
+
 }
