@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mx.cam.model.Projeto;
+import com.mx.cam.model.views.UserView;
 import com.mx.cam.repository.Projetos;
 
 @RestController
@@ -25,11 +26,12 @@ public class ProjetoWs {
 	/**
 	 * Função que retorna por requisição get Todos os projetos cadastradas no banco
 	 * url: /ws/projeto
-	 * @return Lista<Projeto> populada com todos os projetos
+	 * @return Lista<Projeto> populada com todos os projetos que estão com status 0 = em aberto
 	 */
+	@JsonView(UserView.PublicView.class)
 	@RequestMapping(value="/projeto", method=RequestMethod.GET)
-	public List<Projeto> findAllProjeto(){
-		return pjtRepository.findAll();
+	public List<Projeto> findAllProjetoAberto(){
+		return pjtRepository.findAllByStatus('0');
 	}
 	
 	/**
@@ -37,10 +39,12 @@ public class ProjetoWs {
 	 * @param id da url '/ws/projeto/id'
 	 * @return
 	 */
+	@JsonView(UserView.ProjetoView.class)
 	@RequestMapping(value="/projeto/{projetoId}", method=RequestMethod.GET)
 	public Projeto findOneProjeto(@PathVariable(value="projetoId")Long id) {
 		return pjtRepository.findOne(id);
 	}
+	
 	/**
 	 * Função que salva o projeto que é passado no formato JSON pelo corpo da requisição Post
 	 * url: /ws/projeto

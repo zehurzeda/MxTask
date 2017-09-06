@@ -3,22 +3,67 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
-<title>Bem vindo ao sistema!</title>
-
-
-<link th:href="@{/resources/css/estilo_cad_equipe.css}" rel="stylesheet" />
+	<title>Bem vindo ao sistema!</title>
+	<link th:href="@{/resources/css/estilo_cad_equipe.css}" rel="stylesheet" />
+	<script type="text/javascript">
+	</script>
 </head>
 
 <body style="background-color: #f9f9f9">
 
 	<div layout:fragment="content">
 		<div class="row container">
-			
-			
-			
+			<div class="white col s12 z-depth-3">
+				<div class="section">
+					<h5>Novo Projeto</h5>
+				</div>
+				<div class="divider"></div>
+				<form id="formProjeto" class="col s12" name="formProjeto">
+					<div class="row">
+						<div class="input-field col s12 m12 l4">
+							<input id="nomeIpt" name="nome" type="text" class="validate"
+								required="required" /> <label for="nome">Nome do projeto</label>
+						</div>
+						<div class="input-field col s12 m12 l4">
+							<input id="descIpt" name="descricao" type="text" class="validate"
+								required="required" /> <label for="descricao">Descrição</label>
+						</div>
+						<div class="input-field col s12 m12 l4">
+							<select  id="selectEquipe">
+								
+							</select> <label>Equipe</label>
+						</div>
+						<div class="col s12 m12 l12 valinhado center-align">
+							<button class="btn blue waves-effect waves-ligt">Salvar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="white col s12 z-depth-3">
+				<div class="section">
+					<h5>Projetos por Equipe</h5>
+				</div>
+				<div class="divider"></div>
+				<table class="striped centered" id="tabelaPadrao">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nome</th>
+							<th>Opções</th>
+						</tr>
+					<thead>
+					<tbody>
+					</tbody>
+				</table>
+				<div class="col s12 center-align footer-tabela">
+					<span id="itemBtn"></span>
+				</div>
+			</div>
 		</div>
 		<script th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+		<script th:src="@{/resources/js/cadastro/generic.js}"></script>
 		<script th:src="@{/resources/js/cadastro/projeto.js}"></script>
+		<script th:src="@{/resources/js/moment.min.js}"></script>
 	</div>
 
 </body>

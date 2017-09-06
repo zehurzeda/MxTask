@@ -23,21 +23,25 @@ public class Projeto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonView(UserView.PublicView.class)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long id;
 	
 	@JsonView(UserView.PublicView.class)
 	private String nome;
 	
 	@JsonView(UserView.PublicView.class)
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime dataAbertura;
 	
 	@JsonView(UserView.PublicView.class)
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime dataFechamento;
+	
+	//0 = aberto, 1 = fechado
+	@JsonView(UserView.PublicView.class)
+	private Character status;
 	
 	@JsonView(UserView.PublicView.class)
 	@Column(columnDefinition = "Text")
@@ -46,9 +50,35 @@ public class Projeto implements Serializable {
 	@OneToMany(mappedBy = "projeto", targetEntity = Tarefa.class, fetch = FetchType.LAZY)
 	private List<Tarefa> tarefas;
 	
+	@JsonView(UserView.ProjetoView.class)
 	@ManyToOne
 	@JoinColumn(name = "equipe_id")
 	private Equipe equipe;
+	
+	
+	public Character getStatus() {
+		return status;
+	}
+
+	public void setStatus(Character status) {
+		this.status = status;
+	}
+
+	public List<Tarefa> getTarefas() {
+		return tarefas;
+	}
+
+	public void setTarefas(List<Tarefa> tarefas) {
+		this.tarefas = tarefas;
+	}
+
+	public Equipe getEquipe() {
+		return equipe;
+	}
+
+	public void setEquipe(Equipe equipe) {
+		this.equipe = equipe;
+	}
 
 	public LocalDateTime getDataFechamento() {
 		return dataFechamento;

@@ -28,7 +28,7 @@
 							<input id="descIpt" name="descricao" type="text" class="validate"
 								required="required" /> <label for="descricao">Descrição</label>
 						</div>
-						<div class="col s12 m12 l2 valinhado">
+						<div class="col s12 m12 l2 valinhado center-align">
 							<button class="btn blue waves-effect waves-ligt">Salvar</button>
 						</div>
 					</div>
@@ -39,7 +39,7 @@
 					<h5>Listagem de Equipes</h5>
 				</div>
 				<div class="divider"></div>
-				<table class="striped centered" id="tableEquipes">
+				<table class="striped centered" id="tabelaPadrao">
 					<thead>
 						<tr>
 							<th>Id</th>
@@ -155,6 +155,7 @@
 
 
 		<script th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+		<script th:src="@{/resources/js/cadastro/generic.js}"></script>
 		<script th:src="@{/resources/js/cadastro/equipe.js}"></script>
 	</div>
 

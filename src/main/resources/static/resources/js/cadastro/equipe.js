@@ -11,31 +11,7 @@ var NovaEquipe = function(nome, descricao){
 	this.descricao = descricao;
 }
 
-/**
- * Preenche tabela de equipes com os dados da requisição Ajax
- * @param data, vinda da requisição ajax
- * @returns
- */
-function preencheTabela(data){
-	$("#tableEquipes > tbody").empty()
-	$.each(data, function(index, value){
-		$("#tableEquipes > tbody").append(
-			"<tr>" +
-			"	<td>" + value.id + "</td>" +
-			"	<td><a href=''data-id="+ value.id +" class='visualizar'>" + value.nome + "</a></td>" +
-			"	<td>" +
-					"<a href='' data-nome=" + "'" + value.nome + "'" +" data-id="+ value.id +" class='deletar red-text'>" +
-					"<i class='material-icons'>delete_forever</i>" +
-					"</a>" +
-					"<a href='' data-nome="+"'"+ value.nome +"'"+" data-desc="+"'"+ value.descricao +"'"+" data-id="+ value.id +" class='editar black-text'>" +
-					"<i class='material-icons'>edit</i>" +
-					"</a>" +
-			"	</td>" +
-			"</tr>"				
-		);
-	});
-	dadosFinalizados();
-}
+var url = "/ws/equipe/";
 
 /**
  * Preenche tabela de usuarios e projetos da equipe com os dados da requisição Ajax
@@ -76,6 +52,7 @@ function preencheEquipe(data){
 					"<tr>" +
 					"	<td>"+value.id+"</td>" +
 					"	<td>"+value.nome+"</td>" +
+					"	<td>"+value.descricao+"</td>" +
 					"</tr>"	
 			);
 		});	
@@ -89,7 +66,7 @@ function preencheEquipe(data){
  */
 function salvaEquipe(NovaEquipe){
 	$.ajax({
-		url:'/ws/equipe/',
+		url: url,
 		type: "POST",
 		contentType:"application/json;charset=UTF-8",
 		data: JSON.stringify(NovaEquipe),
@@ -110,7 +87,7 @@ function salvaEquipe(NovaEquipe){
 function deletaEquipe(id){
 	$.ajax({
 		type: "DELETE",
-		url:"/ws/equipe/"+id,
+		url: url+id,
 		statusCode: {
 			403: function(){
 				$('#tipoAcao').text('exclusao!');
@@ -135,7 +112,7 @@ function deletaEquipe(id){
  */
 function editaEquipe(Equipe){
 	$.ajax({
-		url:'/ws/equipe/',
+		url: url,
 		type: "PUT",
 		contentType:"application/json;charset=UTF-8",
 		data: JSON.stringify(Equipe),
@@ -154,7 +131,7 @@ function carregaEquipes(){
 	$.ajax({
 		type: "GET",
 		dataType: "json",
-		url:"/ws/equipe/",
+		url:url,
 		success: preencheTabela,
 		beforeSend: aguardaDados
 	});
@@ -264,24 +241,7 @@ function cliqueViewEquipe(event){
  */
 function cliqueAtualizaTabela(event){
 	event.preventDefault();
-	carregaEquipes
-();
-}
-
-/**
- * Função que preenche a div "#itemBtn" com um botão
- * @returns
- */
-function dadosFinalizados(){
-	$("#itemBtn").html("<button id='refreshTable' class='btn blue waves-effect waves-ligt' >Atualizar tabela</button>");
-}
-
-/**
- * Função que preenche a div "#itemBtn" com um gif de loading
- * @returns
- */
-function aguardaDados(){
-	$("#itemBtn").html("<img  src='/resources/images/loading.gif'/>");
+	carregaEquipes();
 }
 
 //Função que é executada após o DOM ser carregado
@@ -290,7 +250,6 @@ $(document).ready(function() {
 	carregaEquipes();
 	$("#itemBtn").on('click', cliqueAtualizaTabela);
 	$("#formEquipe").submit(cliqueSalvaEquipe);
-	$('.modal').modal();
 	$(document).on('click', '.deletar', cliqueExcluiEquipe);
 	$(document).on('click', '.editar', cliqueEditaEquipe);
 	$(document).on('click', '.visualizar', cliqueViewEquipe);
