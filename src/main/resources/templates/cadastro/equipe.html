@@ -6,7 +6,7 @@
 <title>Bem vindo ao sistema!</title>
 
 
-<link th:href="@{/resources/css/estilo_cad_equipe.css}" rel="stylesheet" />
+<link th:href="@{/resources/css/estilo_cad.css}" rel="stylesheet" />
 </head>
 
 <body style="background-color: #f9f9f9">
@@ -71,7 +71,7 @@
 			</div>
 		</div>
 
-		<div id="modalEdicao" class="modal">
+		<div id="modalEdicao" class="modal"> centered
 			<div class="modal-content">
 				<h4>Editar Equipe</h4>
 				<div class="divider"></div>
@@ -153,8 +153,7 @@
 			</div>
 		</div>
 
-
-		<script th:src="@{/resources/js/jquery-3.2.1.min.js}"></script>
+		<script th:src="@{/node_modules/jquery/dist/jquery.min.js}"></script>
 		<script th:src="@{/resources/js/cadastro/generic.js}"></script>
 		<script th:src="@{/resources/js/cadastro/equipe.js}"></script>
 	</div>

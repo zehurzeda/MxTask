@@ -9,6 +9,7 @@ public class UserView {
 	
 	//View de Equipe
 	public interface EquipeView extends PublicView{}
+	public interface EquipeAllView extends EquipeView{}
 	
 	//View de Projeto
 	public interface ProjetoView extends PublicView{}

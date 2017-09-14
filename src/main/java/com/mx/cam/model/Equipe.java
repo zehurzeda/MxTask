@@ -26,7 +26,7 @@ public class Equipe {
 	@JsonView(UserView.PublicView.class)
 	private String descricao;
 
-	@JsonView(UserView.EquipeView.class)
+	@JsonView(UserView.EquipeAllView.class)
 	@OneToMany(mappedBy = "equipe", targetEntity = Usuario.class, fetch = FetchType.LAZY)
 	private List<Usuario> usuarios;
 

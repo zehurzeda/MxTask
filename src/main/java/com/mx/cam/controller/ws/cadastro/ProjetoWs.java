@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.mx.cam.model.Equipe;
 import com.mx.cam.model.Projeto;
 import com.mx.cam.model.views.UserView;
+import com.mx.cam.repository.Equipes;
 import com.mx.cam.repository.Projetos;
 
 @RestController
@@ -22,6 +24,9 @@ import com.mx.cam.repository.Projetos;
 public class ProjetoWs {
 	@Autowired
 	private Projetos pjtRepository;
+	
+	@Autowired
+	private Equipes eqpRepository;
 	
 	/**
 	 * Função que retorna por requisição get Todos os projetos cadastradas no banco
@@ -41,8 +46,13 @@ public class ProjetoWs {
 	 */
 	@JsonView(UserView.ProjetoView.class)
 	@RequestMapping(value="/projeto/{projetoId}", method=RequestMethod.GET)
-	public Projeto findOneProjeto(@PathVariable(value="projetoId")Long id) {
-		return pjtRepository.findOne(id);
+	public ResponseEntity<Projeto> findOneProjeto(@PathVariable(value="projetoId")Long id) {
+		Projeto pjt =  pjtRepository.findOne(id);
+		if(pjt == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}else {
+			return new ResponseEntity<>(pjt, HttpStatus.OK);
+		}
 	}
 	
 	/**
@@ -94,4 +104,21 @@ public class ProjetoWs {
 		
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+	@JsonView(UserView.PublicView.class)
+	@RequestMapping(value="/projeto/equipe/{equipeId}", method=RequestMethod.GET)
+	public List<Projeto> findProjetosPorEquipe(@PathVariable(value="equipeId")Long id) {
+		Equipe equipe = eqpRepository.findOne(id);
+		
+		return pjtRepository.findAllByEquipe(equipe);
+	}
+	
+
+	@JsonView(UserView.EquipeView.class)
+	@RequestMapping(value="/projeto/equipe", method=RequestMethod.GET)
+	public List<Equipe> findAllEquipeProjeto(){
+		return eqpRepository.findAll();
+	}
+	
+	
 }

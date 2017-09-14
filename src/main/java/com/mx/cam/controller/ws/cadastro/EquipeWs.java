@@ -48,7 +48,7 @@ public class EquipeWs {
 	 * @param id da url /ws/equipe/id
 	 * @return
 	 */
-	@JsonView(UserView.EquipeView.class)
+	@JsonView(UserView.EquipeAllView.class)
 	@RequestMapping(value="/equipe/{equipeId}", method=RequestMethod.GET)
 	public Equipe findOneEquipe(@PathVariable(value="equipeId")Long id) {
 		return eqpRepository.findOne(id);
@@ -102,5 +102,5 @@ public class EquipeWs {
 		
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 }

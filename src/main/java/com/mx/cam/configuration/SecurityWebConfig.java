@@ -19,7 +19,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception{
 		http
 			.authorizeRequests()
-				.antMatchers("/resources/**", "/webjars/**", "/ws/**").permitAll()
+				.antMatchers("/resources/**", "/webjars/**", "/ws/**", "/node_modules/**").permitAll()
 				.anyRequest().authenticated()
 			.and()
 			.formLogin()
