@@ -140,8 +140,8 @@ function cliqueSalvaProjeto(){
 }
 
 /**
- * Função que realiza as ações após clique no botão 'sim' do modal de exclusão de equipe
- * obtem o id da equipe clicada e envia para a função deletaEquipe
+ * Função que realiza as ações após clique no botão 'sim' do modal de exclusão
+ * obtem o id do objeto clicado e envia para a função deletaProjeto
  * @param event
  * @returns
  */

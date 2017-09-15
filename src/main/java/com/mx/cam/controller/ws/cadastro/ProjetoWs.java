@@ -105,6 +105,12 @@ public class ProjetoWs {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
+	
+	/**
+	 * Função que retorna por requisição get Todos os projetos da equipe passada como parametro
+	 * url: /ws/projeto
+	 * @return List<Projeto> populada com todos os projetos que estão são da equipe com o id passado como parametro
+	 */
 	@JsonView(UserView.PublicView.class)
 	@RequestMapping(value="/projeto/equipe/{equipeId}", method=RequestMethod.GET)
 	public List<Projeto> findProjetosPorEquipe(@PathVariable(value="equipeId")Long id) {
@@ -113,7 +119,11 @@ public class ProjetoWs {
 		return pjtRepository.findAllByEquipe(equipe);
 	}
 	
-
+	/**
+	 * Função que retorna todos os projetos com as respectivas equipes em que os mesmos estão alocados
+	 * url: /ws/projeto/equipe
+	 * @return List<Equipe> com todas as equipes e seus projetos
+	 */
 	@JsonView(UserView.EquipeView.class)
 	@RequestMapping(value="/projeto/equipe", method=RequestMethod.GET)
 	public List<Equipe> findAllEquipeProjeto(){
