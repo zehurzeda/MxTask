@@ -22,18 +22,21 @@ function preencheProjetos(data){
 		}else{
 			$.each(value.projetos, function(index, pjt){
 				$("#"+value.nome).append(
-				"<tr>" +
-			"	<td id='tableItem'><a href=''data-id="+ pjt.id +" class='visualizar'>" + pjt.nome + "</a></td>" +
-			"	<td>" +
-					"<a href='' data-nome=" + "'" + pjt.nome + "'" +" data-id="+ pjt.id +" class='deletar red-text'>" +
-					"<i class='material-icons'>delete_forever</i>" +
-					"</a>" +
-					"<a href='' data-nome="+"'"+ pjt.nome +"'"+" data-desc="+"'"+ pjt.descricao +"'"+" data-id="+ pjt.id +" class='editar black-text'>" +
-					"<i class=	'material-icons'>edit</i>" +
-					"</a>" +
-			"	</td>" +
-			"</tr>"
-			)
+					"<tr>" +
+						"<td class='centerAlign'>"+
+						"<a href=''data-id="+ pjt.id +" class='visualizar'>"+
+						pjt.nome + "</a>"+
+						"</td>" +
+						"<td class='rightAlign'>" +	
+							"<a href='' data-nome=" + "'o projeto " + pjt.nome + "'" +" data-id="+ pjt.id +" class='deletar red-text'>" +
+								"<i class='material-icons'>delete_forever</i>" +
+							"</a>" +
+							"<a href='' data-nome="+"'"+ pjt.nome +"'"+" data-desc="+"'"+ pjt.descricao +"'"+" data-id="+ pjt.id +" class='editar black-text'>" +
+								"<i class=	'material-icons'>edit</i>" +
+							"</a>" +
+						"</td>" +
+					"</tr>"
+				)
 			})
 		}
 	});
@@ -71,7 +74,6 @@ function carregaEquipes(){
 }
 
 function salvaProjeto(projeto){
-	alert(JSON.stringify(projeto));
 	$.ajax({
 		url:url,
 		type: "POST",
@@ -83,6 +85,31 @@ function salvaProjeto(projeto){
 			Materialize.toast('Projeto salvo com sucesso!', 3000);
 			carregaEquipes();
 			carregaProjetos();
+		}
+	});
+}
+
+/**
+ * Função Ajax que faz requisição do tipo DELETE e deleta com base no parametro ID que recebe
+ * @param id de uma equipe a ser excluida
+ * @returns
+ */
+function deletaProjeto(id){
+	$.ajax({
+		type: "DELETE",
+		url: url+id,
+		statusCode: {
+			403: function(){
+				$('#tipoAcao').text('exclusao!');
+				$('#msgAcao').text('Há tarefas vinculadas a esta equipe, favor desvincule-as e tente novamente!');
+			}
+		},
+		success: function(){
+			Materialize.toast('Projeto excluido com sucesso!', 4000);
+			carregaProjetos();
+		},
+		error: function(){
+			$('#modalErro').modal('open');
 		}
 	});
 }
@@ -112,9 +139,21 @@ function cliqueSalvaProjeto(){
 	salvaProjeto(pjt);
 }
 
+/**
+ * Função que realiza as ações após clique no botão 'sim' do modal de exclusão de equipe
+ * obtem o id da equipe clicada e envia para a função deletaEquipe
+ * @param event
+ * @returns
+ */
+function cliqueConfirmaExclusao(event){
+	var id = $('a.confirma-exclusao').attr('data-id');
+	deletaProjeto(id);
+}
 
 $(document).ready(function() {
 	carregaEquipes();
 	carregaProjetos();
+	$(document).on('click', '.deletar', cliqueExcluir);
 	$("#formProjeto").submit(cliqueSalvaProjeto);
+	$('#confirmaExclusao').on('click', cliqueConfirmaExclusao);
 });

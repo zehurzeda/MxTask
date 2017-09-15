@@ -14,6 +14,32 @@ var NovaEquipe = function(nome, descricao){
 var url = "/ws/equipe/";
 
 /**
+ * Preenche tabela de equipes com os dados da requisição Ajax
+ * @param data, vinda da requisição ajax
+ * @returns
+ */
+function preencheTabela(data){
+	$("#tabelaPadrao > tbody").empty()
+	$.each(data, function(index, value){
+		$("#tabelaPadrao > tbody").append(
+			"<tr>" +
+			"	<td>" + value.id + "</td>" +
+			"	<td><a href=''data-id="+ value.id +" class='visualizar'>" + value.nome + "</a></td>" +
+			"	<td>" +
+					"<a href='' data-nome=" + "'a equipe de " + value.nome + "'" +" data-id="+ value.id +" class='deletar red-text'>" +
+					"<i class='material-icons'>delete_forever</i>" +
+					"</a>" +
+					"<a href='' data-nome="+"'"+ value.nome +"'"+" data-desc="+"'"+ value.descricao +"'"+" data-id="+ value.id +" class='editar black-text'>" +
+					"<i class='material-icons'>edit</i>" +
+					"</a>" +
+			"	</td>" +
+			"</tr>"				
+		);
+	});
+	dadosFinalizados();
+}
+
+/**
  * Preenche tabela de usuarios e projetos da equipe com os dados da requisição Ajax
  * @param data, vinda da requisição ajax
  * @returns
@@ -250,7 +276,7 @@ $(document).ready(function() {
 	carregaEquipes();
 	$("#itemBtn").on('click', cliqueAtualizaTabela);
 	$("#formEquipe").submit(cliqueSalvaEquipe);
-	$(document).on('click', '.deletar', cliqueExcluiEquipe);
+	$(document).on('click', '.deletar', cliqueExcluir);
 	$(document).on('click', '.editar', cliqueEditaEquipe);
 	$(document).on('click', '.visualizar', cliqueViewEquipe);
 	$('#confirmaExclusao').on('click', cliqueConfirmaExclusao);

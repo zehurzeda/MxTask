@@ -15,27 +15,18 @@ function aguardaDados(){
 }
 
 /**
- * Preenche tabela de equipes com os dados da requisição Ajax
- * @param data, vinda da requisição ajax
+ * Função que realiza as ações após clique no botão 'Excluir' de algum objeto da table
+ * necessita ter o modal 'confirmaExclusão' no html
+ * preenche o modal com os dados do objeto clicado.
+ * @param event
  * @returns
  */
-function preencheTabela(data){
-	$("#tabelaPadrao > tbody").empty()
-	$.each(data, function(index, value){
-		$("#tabelaPadrao > tbody").append(
-			"<tr>" +
-			"	<td>" + value.id + "</td>" +
-			"	<td><a href=''data-id="+ value.id +" class='visualizar'>" + value.nome + "</a></td>" +
-			"	<td>" +
-					"<a href='' data-nome=" + "'" + value.nome + "'" +" data-id="+ value.id +" class='deletar red-text'>" +
-					"<i class='material-icons'>delete_forever</i>" +
-					"</a>" +
-					"<a href='' data-nome="+"'"+ value.nome +"'"+" data-desc="+"'"+ value.descricao +"'"+" data-id="+ value.id +" class='editar black-text'>" +
-					"<i class='material-icons'>edit</i>" +
-					"</a>" +
-			"	</td>" +
-			"</tr>"				
-		);
-	});
-	dadosFinalizados();
+function cliqueExcluir(event){
+	event.preventDefault();
+	var nome = $(this).data('nome');
+	var id = $(this).data('id');
+	$('#nomeExclusao').text(nome);
+	$("a.confirma-exclusao").attr('data-id', id);
+	$('#modalExclusao').modal('open');
 }
+
